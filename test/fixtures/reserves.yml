@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  Booking: one
+  Location: one
+  Room: one
+  Guest: one
+
+two:
+  Booking: two
+  Location: two
+  Room: two
+  Guest: two

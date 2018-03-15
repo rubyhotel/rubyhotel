@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  phoneNum: MyString
+  position: MyString
+  hourlyRate: 1
+  startDate: 2018-03-15 16:45:26
+  Location: one
+
+two:
+  name: MyString
+  phoneNum: MyString
+  position: MyString
+  hourlyRate: 1
+  startDate: 2018-03-15 16:45:26
+  Location: two

@@ -1,0 +1,12 @@
+class CreateReserves < ActiveRecord::Migration[5.1]
+  def change
+    create_table :reserves do |t|
+      t.references :Booking, foreign_key: true
+      t.references :Location, foreign_key: true
+      t.references :Room, foreign_key: true
+      t.references :Guest, foreign_key: true
+
+      t.timestamps
+    end
+  end
+end

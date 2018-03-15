@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  roomNum: 1
+  amenities: MyString
+  isVacant: false
+  isClean: false
+  Location: one
+
+two:
+  roomNum: 1
+  amenities: MyString
+  isVacant: false
+  isClean: false
+  Location: two
