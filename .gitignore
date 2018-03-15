@@ -4,8 +4,17 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
+# Ignore RubyMine config.
+.idea/*
+
 # Ignore bundler config.
 /.bundle
+
+# Ignore local Ruby version
+.ruby-version
+
+# Ignore database.yml
+config/database.yml
 
 # Ignore all logfiles and tempfiles.
 /log/*
