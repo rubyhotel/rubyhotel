@@ -26,3 +26,4 @@ config/database.yml
 /yarn-error.log
 
 .byebug_history
+.DS_Store
