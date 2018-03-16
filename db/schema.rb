@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180315235040) do
+ActiveRecord::Schema.define(version: 20180316003007) do
 
   create_table "bookings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "cost"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20180315235040) do
     t.string "name"
     t.string "phoneNum"
     t.string "position"
-    t.integer "hourlyRate"
+    t.float "hourlyRate", limit: 24
     t.datetime "startDate"
     t.bigint "Location_id"
     t.datetime "created_at", null: false
