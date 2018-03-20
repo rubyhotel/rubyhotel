@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @guest.name %>
+</p>
+
+<p>
+  <strong>Phonenum:</strong>
+  <%= @guest.phoneNum %>
+</p>
+
+<p>
+  <strong>Creditcardnum:</strong>
+  <%= @guest.creditCardNum %>
+</p>
+
+<%= link_to 'Edit', edit_guest_path(@guest) %> |
+<%= link_to 'Back', guests_path %>

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cost: 1
+  inDate: 2018-03-15 16:43:07
+  outDate: 2018-03-15 16:43:07
+  numOfGuests: 1
+
+two:
+  cost: 1
+  inDate: 2018-03-15 16:43:07
+  outDate: 2018-03-15 16:43:07
+  numOfGuests: 1

@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Reserves</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Booking</th>
+      <th>Location</th>
+      <th>Room</th>
+      <th>Guest</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @reserves.each do |reserve| %>
+      <tr>
+        <td><%= reserve.Booking %></td>
+        <td><%= reserve.Location %></td>
+        <td><%= reserve.Room %></td>
+        <td><%= reserve.Guest %></td>
+        <td><%= link_to 'Show', reserve %></td>
+        <td><%= link_to 'Edit', edit_reserve_path(reserve) %></td>
+        <td><%= link_to 'Destroy', reserve, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Reserve', new_reserve_path %>
