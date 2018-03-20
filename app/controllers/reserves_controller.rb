@@ -1,10 +1,10 @@
 class ReservesController < ApplicationController
-  before_action :set_reserf, only: [:show, :edit, :update, :destroy]
+  before_action :set_reserve, only: [:show, :edit, :update, :destroy]
 
   # GET /reserves
   # GET /reserves.json
   def index
-    @reserves = Reserf.all
+    @reserves = Reserve.all
   end
 
   # GET /reserves/1
@@ -14,7 +14,7 @@ class ReservesController < ApplicationController
 
   # GET /reserves/new
   def new
-    @reserf = Reserf.new
+    @reserve = Reserve.new
   end
 
   # GET /reserves/1/edit
@@ -24,15 +24,15 @@ class ReservesController < ApplicationController
   # POST /reserves
   # POST /reserves.json
   def create
-    @reserf = Reserf.new(reserf_params)
+    @reserve = Reserve.new(reserve_params)
 
     respond_to do |format|
-      if @reserf.save
-        format.html { redirect_to @reserf, notice: 'Reserf was successfully created.' }
-        format.json { render :show, status: :created, location: @reserf }
+      if @reserve.save
+        format.html { redirect_to @reserve, notice: 'Reserve was successfully created.' }
+        format.json { render :show, status: :created, location: @reserve }
       else
         format.html { render :new }
-        format.json { render json: @reserf.errors, status: :unprocessable_entity }
+        format.json { render json: @reserve.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -41,12 +41,12 @@ class ReservesController < ApplicationController
   # PATCH/PUT /reserves/1.json
   def update
     respond_to do |format|
-      if @reserf.update(reserf_params)
-        format.html { redirect_to @reserf, notice: 'Reserf was successfully updated.' }
-        format.json { render :show, status: :ok, location: @reserf }
+      if @reserve.update(reserve_params)
+        format.html { redirect_to @reserve, notice: 'Reserve was successfully updated.' }
+        format.json { render :show, status: :ok, location: @reserve }
       else
         format.html { render :edit }
-        format.json { render json: @reserf.errors, status: :unprocessable_entity }
+        format.json { render json: @reserve.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -54,21 +54,21 @@ class ReservesController < ApplicationController
   # DELETE /reserves/1
   # DELETE /reserves/1.json
   def destroy
-    @reserf.destroy
+    @reserve.destroy
     respond_to do |format|
-      format.html { redirect_to reserves_url, notice: 'Reserf was successfully destroyed.' }
+      format.html { redirect_to reserves_url, notice: 'Reserve was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_reserf
-      @reserf = Reserf.find(params[:id])
+    def set_reserve
+      @reserve = Reserve.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def reserf_params
-      params.require(:reserf).permit(:Booking_id, :Location_id, :Room_id, :Guest_id)
+    def reserve_params
+      params.require(:reserve).permit(:Booking_id, :Location_id, :Room_id, :Guest_id)
     end
 end

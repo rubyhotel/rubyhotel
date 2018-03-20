@@ -1,1 +1,1 @@
-json.partial! "reserves/reserf", reserf: @reserf
+json.partial! "reserves/reserve", reserve: @reserve

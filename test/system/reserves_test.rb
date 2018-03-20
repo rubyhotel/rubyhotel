@@ -4,6 +4,6 @@ class ReservesTest < ApplicationSystemTestCase
   # test "visiting the index" do
   #   visit reserves_url
   #
-  #   assert_selector "h1", text: "Reserf"
+  #   assert_selector "h1", text: "Reserve"
   # end
 end

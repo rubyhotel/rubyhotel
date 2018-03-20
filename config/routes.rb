@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  resources :employees
   resources :reserves
+  resources :employees
   resources :guests
   resources :bookings
   resources :rooms

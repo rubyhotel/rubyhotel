@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ReserfTest < ActiveSupport::TestCase
+class ReserveTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
