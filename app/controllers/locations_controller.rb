@@ -4,12 +4,15 @@ class LocationsController < ApplicationController
   # GET /locations
   # GET /locations.json
   def index
-    @locations = Location.all
+    query = 'SELECT * FROM Location'
+    @locations = Location.find_by_sql(query)
   end
 
   # GET /locations/1
   # GET /locations/1.json
   def show
+    query = "SELECT * FROM Location WHERE locationId = #{params[:id]}"
+    @location = Location.find_by_sql(query).first
   end
 
   # GET /locations/new
