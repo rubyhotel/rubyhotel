@@ -7,14 +7,14 @@ DROP TABLE Room;
 DROP TABLE Location;
 
 CREATE TABLE Location (
-  locationId INT(11),
-  address    CHAR(100) NOT NULL,
+  locationId INT(11) AUTO_INCREMENT,
+  address    CHAR(100)     NOT NULL,
   phoneNum   CHAR(10),
   PRIMARY KEY (locationId)
 );
 
 CREATE TABLE Employee (
-  employeeId INT(11),
+  employeeId INT(11) AUTO_INCREMENT,
   name       CHAR(100)     NOT NULL,
   phoneNum   CHAR(10)      NOT NULL,
   position   CHAR(100)     NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE Employee (
 );
 
 CREATE TABLE Facility (
-  facilityId INT(11),
+  facilityId INT(11) AUTO_INCREMENT,
   name       CHAR(30),
   factype    CHAR(30) NOT NULL,
   pricing    DECIMAL(9, 2),
@@ -36,18 +36,19 @@ CREATE TABLE Facility (
 );
 
 CREATE TABLE Room (
-  roomId     INT(11) PRIMARY KEY AUTO_INCREMENT,
+  roomId     INT(11) AUTO_INCREMENT,
   roomNum    INT(11),
   amenities  CHAR(100),
   isVacant   BOOLEAN NOT NULL,
   isClean    BOOLEAN NOT NULL,
   locationId INT(11) NOT NULL,
+  PRIMARY KEY (roomId),
   UNIQUE (roomNum, locationId),
   FOREIGN KEY (locationId) REFERENCES Location (locationId) ON DELETE CASCADE
 );
 
 CREATE TABLE Booking (
-  bookingId   INT(11),
+  bookingId   INT(11) AUTO_INCREMENT,
   cost        DECIMAL(9, 2) NOT NULL,
   inDate      DATETIME      NOT NULL,
   outDate     DATETIME      NOT NULL,
@@ -56,7 +57,7 @@ CREATE TABLE Booking (
 );
 
 CREATE TABLE Guest (
-  guestId       INT(11),
+  guestId       INT(11) AUTO_INCREMENT,
   name          CHAR(100) NOT NULL,
   phoneNum      CHAR(10)  NOT NULL,
   creditCardNum CHAR(16)  NOT NULL,
