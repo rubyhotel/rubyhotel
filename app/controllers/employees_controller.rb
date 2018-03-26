@@ -4,12 +4,15 @@ class EmployeesController < ApplicationController
   # GET /employees
   # GET /employees.json
   def index
-    @employees = Employee.all
+    query = 'SELECT * FROM Employee'
+    @employees = Employee.find_by_sql(query)
   end
 
   # GET /employees/1
   # GET /employees/1.json
   def show
+    query = "SELECT * FROM Employee WHERE employeeId = #{params[:id]}"
+    @employee = Employee.find_by_sql(query).first
   end
 
   # GET /employees/new
@@ -54,7 +57,9 @@ class EmployeesController < ApplicationController
   # DELETE /employees/1
   # DELETE /employees/1.json
   def destroy
-    @employee.destroy
+    sql = "DELETE FROM Employee WHERE employeeId = #{params[:id]}"
+    ActiveRecord::Base.connection.execute(sql)
+
     respond_to do |format|
       format.html { redirect_to employees_url, notice: 'Employee was successfully destroyed.' }
       format.json { head :no_content }

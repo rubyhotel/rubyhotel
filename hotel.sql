@@ -1,4 +1,4 @@
-DROP TABLE Reserves;
+DROP TABLE Reserve;
 DROP TABLE Booking;
 DROP TABLE Employee;
 DROP TABLE Facility;
@@ -28,7 +28,7 @@ CREATE TABLE Employee (
 CREATE TABLE Facility (
   facilityId INT(11),
   name       CHAR(30),
-  type       CHAR(30) NOT NULL,
+  factype    CHAR(30) NOT NULL,
   pricing    DECIMAL(9, 2),
   locationId INT(11)  NOT NULL,
   PRIMARY KEY (facilityId),
@@ -62,16 +62,16 @@ CREATE TABLE Guest (
   PRIMARY KEY (guestId)
 );
 
-CREATE TABLE Reserves (
+CREATE TABLE Reserve (
   bookingId  INT(11),
   roomNum    INT(11),
   locationId INT(11),
   guestId    INT(11),
   PRIMARY KEY (bookingId, roomNum, locationId, guestId),
-  FOREIGN KEY (bookingId) REFERENCES Booking (bookingId),
-  FOREIGN KEY (roomNum) REFERENCES Room (roomNum),
-  FOREIGN KEY (locationId) REFERENCES Location (locationId),
-  FOREIGN KEY (guestId) REFERENCES Guest (guestId)
+  FOREIGN KEY (bookingId) REFERENCES Booking (bookingId) ON DELETE CASCADE,
+  FOREIGN KEY (roomNum) REFERENCES Room (roomNum) ON DELETE CASCADE,
+  FOREIGN KEY (locationId) REFERENCES Location (locationId) ON DELETE CASCADE,
+  FOREIGN KEY (guestId) REFERENCES Guest (guestId) ON DELETE CASCADE
 );
 
 # GENERATE DUMMY DATA
@@ -125,23 +125,23 @@ VALUES (
 
 # FACILITY
 INSERT INTO
-  Facility (facilityId, name, type, pricing, locationId)
+  Facility (facilityId, name, factype, pricing, locationId)
 VALUES (1, 'John Goodman\'s Children\'s Pool', 'swimming pool', 0, 1);
 
 INSERT INTO
-  Facility (facilityId, name, type, pricing, locationId)
+  Facility (facilityId, name, factype, pricing, locationId)
 VALUES (2, 'Muscle Beach', 'weight room', 10, 2);
 
 INSERT INTO
-  Facility (facilityId, name, type, pricing, locationId)
+  Facility (facilityId, name, factype, pricing, locationId)
 VALUES (3, 'Dino Park', 'jungle gym', 0, 3);
 
 INSERT INTO
-  Facility (facilityId, name, type, pricing, locationId)
+  Facility (facilityId, name, factype, pricing, locationId)
 VALUES (4, 'Oprah\'s Car', 'car pool', 0, 4);
 
 INSERT INTO
-  Facility (facilityId, name, type, pricing, locationId)
+  Facility (facilityId, name, factype, pricing, locationId)
 VALUES (5, 'Trash Palace', 'weight room', 0, 5);
 
 # ROOMS
@@ -197,36 +197,36 @@ VALUES (4, 'Donald Trump', '8849392023', '4550123456789012');
 INSERT INTO Guest (guestId, name, phoneNum, creditCardNum)
 VALUES (5, 'Arthur Tse', '9913324434', '8849392023034500');
 
-# RESERVES
-INSERT INTO Reserves (
+# Reserve
+INSERT INTO Reserve (
   bookingId,
   roomNum,
   locationId,
   guestId)
 VALUES (1, 101, 1, 1);
 
-INSERT INTO Reserves (
+INSERT INTO Reserve (
   bookingId,
   roomNum,
   locationId,
   guestId)
 VALUES (2, 101, 2, 2);
 
-INSERT INTO Reserves (
+INSERT INTO Reserve (
   bookingId,
   roomNum,
   locationId,
   guestId)
 VALUES (3, 206, 3, 3);
 
-INSERT INTO Reserves (
+INSERT INTO Reserve (
   bookingId,
   roomNum,
   locationId,
   guestId)
 VALUES (4, 208, 4, 4);
 
-INSERT INTO Reserves (
+INSERT INTO Reserve (
   bookingId,
   roomNum,
   locationId,

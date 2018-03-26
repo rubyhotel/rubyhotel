@@ -4,12 +4,15 @@ class GuestsController < ApplicationController
   # GET /guests
   # GET /guests.json
   def index
-    @guests = Guest.all
+    query = 'SELECT * FROM Guest'
+    @guests = Guest.find_by_sql(query)
   end
 
   # GET /guests/1
   # GET /guests/1.json
   def show
+    query = "SELECT * FROM Guest WHERE guestId = #{params[:id]}"
+    @guest = Guest.find_by_sql(query).first
   end
 
   # GET /guests/new
@@ -54,7 +57,9 @@ class GuestsController < ApplicationController
   # DELETE /guests/1
   # DELETE /guests/1.json
   def destroy
-    @guest.destroy
+    sql = "DELETE FROM Guest WHERE guestId = #{params[:id]}"
+    ActiveRecord::Base.connection.execute(sql)
+
     respond_to do |format|
       format.html { redirect_to guests_url, notice: 'Guest was successfully destroyed.' }
       format.json { head :no_content }

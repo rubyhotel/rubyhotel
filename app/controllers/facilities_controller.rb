@@ -4,12 +4,15 @@ class FacilitiesController < ApplicationController
   # GET /facilities
   # GET /facilities.json
   def index
-    @facilities = Facility.all
+    query = 'SELECT * FROM Facility'
+    @facilities = Facility.find_by_sql(query)
   end
 
   # GET /facilities/1
   # GET /facilities/1.json
   def show
+    query = "SELECT * FROM Facility WHERE facilityId = #{params[:id]}"
+    @facility = Facility.find_by_sql(query).first
   end
 
   # GET /facilities/new
@@ -54,7 +57,9 @@ class FacilitiesController < ApplicationController
   # DELETE /facilities/1
   # DELETE /facilities/1.json
   def destroy
-    @facility.destroy
+    sql = "DELETE FROM Facility WHERE facilityId = #{params[:id]}"
+    ActiveRecord::Base.connection.execute(sql)
+
     respond_to do |format|
       format.html { redirect_to facilities_url, notice: 'Facility was successfully destroyed.' }
       format.json { head :no_content }

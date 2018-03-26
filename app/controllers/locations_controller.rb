@@ -60,8 +60,6 @@ class LocationsController < ApplicationController
     sql = "DELETE FROM Location WHERE locationId = #{params[:id]}"
     ActiveRecord::Base.connection.execute(sql)
 
-
-    # @location.destroy
     respond_to do |format|
       format.html { redirect_to locations_url, notice: 'Location was successfully destroyed.' }
       format.json { head :no_content }

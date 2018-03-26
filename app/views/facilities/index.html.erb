@@ -17,8 +17,8 @@
     <% @facilities.each do |facility| %>
       <tr>
         <td><%= facility.name %></td>
-        <td><%= facility.type %></td>
-        <td><%= facility.price %></td>
+        <td><%= facility.factype %></td>
+        <td><%= facility.pricing %></td>
         <td><%= facility.Location %></td>
         <td><%= link_to 'Show', facility %></td>
         <td><%= link_to 'Edit', edit_facility_path(facility) %></td>

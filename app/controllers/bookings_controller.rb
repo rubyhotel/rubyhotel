@@ -4,12 +4,15 @@ class BookingsController < ApplicationController
   # GET /bookings
   # GET /bookings.json
   def index
-    @bookings = Booking.all
+    query = 'SELECT * FROM Booking'
+    @bookings = Booking.find_by_sql(query)
   end
 
   # GET /bookings/1
   # GET /bookings/1.json
   def show
+    query = "SELECT * FROM Booking WHERE bookingId = #{params[:id]}"
+    @booking = Booking.find_by_sql(query).first
   end
 
   # GET /bookings/new
@@ -54,7 +57,9 @@ class BookingsController < ApplicationController
   # DELETE /bookings/1
   # DELETE /bookings/1.json
   def destroy
-    @booking.destroy
+    sql = "DELETE FROM Booking WHERE bookingId = #{params[:id]}"
+    ActiveRecord::Base.connection.execute(sql)
+
     respond_to do |format|
       format.html { redirect_to bookings_url, notice: 'Booking was successfully destroyed.' }
       format.json { head :no_content }
