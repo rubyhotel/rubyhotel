@@ -22,7 +22,7 @@ CREATE TABLE Employee (
   startDate  DATETIME      NOT NULL,
   locationId INT(11)       NOT NULL,
   PRIMARY KEY (employeeId),
-  FOREIGN KEY (locationId) REFERENCES Location (locationId)
+  FOREIGN KEY (locationId) REFERENCES Location (locationId) ON DELETE CASCADE
 );
 
 CREATE TABLE Facility (
@@ -32,17 +32,18 @@ CREATE TABLE Facility (
   pricing    DECIMAL(9, 2),
   locationId INT(11)  NOT NULL,
   PRIMARY KEY (facilityId),
-  FOREIGN KEY (locationId) REFERENCES Location (locationId)
+  FOREIGN KEY (locationId) REFERENCES Location (locationId) ON DELETE CASCADE
 );
 
 CREATE TABLE Room (
+  roomId     INT(11) PRIMARY KEY AUTO_INCREMENT,
   roomNum    INT(11),
   amenities  CHAR(100),
   isVacant   BOOLEAN NOT NULL,
   isClean    BOOLEAN NOT NULL,
   locationId INT(11) NOT NULL,
-  PRIMARY KEY (roomNum, locationId),
-  FOREIGN KEY (locationId) REFERENCES Location (locationId)
+  UNIQUE (roomNum, locationId),
+  FOREIGN KEY (locationId) REFERENCES Location (locationId) ON DELETE CASCADE
 );
 
 CREATE TABLE Booking (
@@ -146,24 +147,24 @@ VALUES (5, 'Trash Palace', 'weight room', 0, 5);
 
 # ROOMS
 INSERT INTO
-  Room (roomNum, amenities, isVacant, isClean, locationId)
-VALUES (101, 'internet, 2 bath, 1 king size bed', FALSE, TRUE, 1);
+  Room (roomId, roomNum, amenities, isVacant, isClean, locationId)
+VALUES (1, 101, 'internet, 2 bath, 1 king size bed', FALSE, TRUE, 1);
 
 INSERT INTO
-  Room (roomNum, amenities, isVacant, isClean, locationId)
-VALUES (101, 'internet, 1 bath, 1 queen size bed', TRUE, TRUE, 2);
+  Room (roomId, roomNum, amenities, isVacant, isClean, locationId)
+VALUES (2, 101, 'internet, 1 bath, 1 queen size bed', TRUE, TRUE, 2);
 
 INSERT INTO
-  Room (roomNum, amenities, isVacant, isClean, locationId)
-VALUES (206, 'internet, 2 bath, 2 queen size bed', FALSE, FALSE, 3);
+  Room (roomId, roomNum, amenities, isVacant, isClean, locationId)
+VALUES (3, 206, 'internet, 2 bath, 2 queen size bed', FALSE, FALSE, 3);
 
 INSERT INTO
-  Room (roomNum, amenities, isVacant, isClean, locationId)
-VALUES (208, 'internet, 2 bath, 2 twin size bed', FALSE, TRUE, 4);
+  Room (roomId, roomNum, amenities, isVacant, isClean, locationId)
+VALUES (4, 208, 'internet, 2 bath, 2 twin size bed', FALSE, TRUE, 4);
 
 INSERT INTO
-  Room (roomNum, amenities, isVacant, isClean, locationId)
-VALUES (115, '1 bath, 1 single size bed', TRUE, FALSE, 5);
+  Room (roomId, roomNum, amenities, isVacant, isClean, locationId)
+VALUES (5, 115, '1 bath, 1 single size bed', TRUE, FALSE, 5);
 
 # BOOKINGS
 INSERT INTO Booking (bookingId, cost, inDate, outDate, numOfGuests)
