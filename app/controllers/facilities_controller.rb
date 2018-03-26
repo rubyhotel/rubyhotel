@@ -27,10 +27,20 @@ class FacilitiesController < ApplicationController
   # POST /facilities
   # POST /facilities.json
   def create
-    @facility = Facility.new(facility_params)
+    sql = "INSERT INTO Facility (name, facType, pricing, locationId) " \
+    "VALUES ('#{facility_params[:name]}', '#{facility_params[:facType]}', " \
+    "#{facility_params[:pricing]}, #{facility_params[:locationId]})"
+    ActiveRecord::Base.connection.exec_insert(sql)
+
+    key_query = 'SELECT LAST_INSERT_ID()'
+    pkey = ActiveRecord::Base.connection.execute(key_query).first.first
+
+    query = "SELECT * FROM Facility WHERE facilityId = #{pkey}"
+    results = Facility.find_by_sql(query)
 
     respond_to do |format|
-      if @facility.save
+      if results.length == 1
+        @facility = results.first
         format.html { redirect_to @facility, notice: 'Facility was successfully created.' }
         format.json { render :show, status: :created, location: @facility }
       else
@@ -43,8 +53,19 @@ class FacilitiesController < ApplicationController
   # PATCH/PUT /facilities/1
   # PATCH/PUT /facilities/1.json
   def update
+    sql = "UPDATE Facility SET " \
+    "name = '#{facility_params[:name]}', " \
+    "facType = '#{facility_params[:facType]}', " \
+    "pricing = '#{facility_params[:pricing]}', " \
+    "locationId = '#{facility_params[:locationId]}' " \
+    "WHERE locationId = #{params[:id]}"
+    rows_updated = ActiveRecord::Base.connection.exec_update(sql)
+
+    query = "SELECT * FROM Facility WHERE facilityId = #{params[:id]}"
+    @facility = Facility.find_by_sql(query).first
+
     respond_to do |format|
-      if @facility.update(facility_params)
+      if rows_updated == 1
         format.html { redirect_to @facility, notice: 'Facility was successfully updated.' }
         format.json { render :show, status: :ok, location: @facility }
       else
@@ -69,7 +90,8 @@ class FacilitiesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_facility
-      @facility = Facility.find(params[:id])
+      query = "SELECT * FROM Facility WHERE facilityId = #{params[:id]}"
+      @facility = Facility.find_by_sql(query).first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
