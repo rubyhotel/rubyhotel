@@ -27,10 +27,20 @@ class RoomsController < ApplicationController
   # POST /rooms
   # POST /rooms.json
   def create
-    @room = Room.new(room_params)
+    sql = "INSERT INTO Room (roomNum, amenities, isVacant, isClean, locationId) " \
+    "VALUES (#{room_params[:roomNum]}, '#{room_params[:amenities]}', #{room_params[:isVacant]}, " \
+    "#{room_params[:isClean]}, #{room_params[:locationId]})"
+    ActiveRecord::Base.connection.exec_insert(sql)
+
+    key_query = 'SELECT LAST_INSERT_ID()'
+    pkey = ActiveRecord::Base.connection.execute(key_query).first.first
+
+    query = "SELECT * FROM Room WHERE roomId = #{pkey}"
+    results = Room.find_by_sql(query)
 
     respond_to do |format|
-      if @room.save
+      if results.length == 1
+        @room = results.first
         format.html { redirect_to @room, notice: 'Room was successfully created.' }
         format.json { render :show, status: :created, location: @room }
       else
@@ -43,8 +53,20 @@ class RoomsController < ApplicationController
   # PATCH/PUT /rooms/1
   # PATCH/PUT /rooms/1.json
   def update
+    sql = "UPDATE Room SET " \
+    "roomNum = #{room_params[:roomNum]}, " \
+    "amenities = '#{room_params[:amenities]}', " \
+    "isVacant = #{room_params[:isVacant]}, " \
+    "isClean = #{room_params[:isClean]}, " \
+    "locationId = #{room_params[:locationId]} " \
+    "WHERE roomId = #{params[:id]}"
+    rows_updated = ActiveRecord::Base.connection.exec_update(sql)
+
+    query = "SELECT * FROM Room WHERE roomId = #{params[:id]}"
+    @room = Room.find_by_sql(query).first
+
     respond_to do |format|
-      if @room.update(room_params)
+      if rows_updated == 1
         format.html { redirect_to @room, notice: 'Room was successfully updated.' }
         format.json { render :show, status: :ok, location: @room }
       else
@@ -68,7 +90,8 @@ class RoomsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_room
-      @room = Room.find(params[:id])
+      query = "SELECT * FROM Room WHERE roomId = #{params[:id]}"
+      @room = Room.find_by_sql(query).first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

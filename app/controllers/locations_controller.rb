@@ -27,7 +27,8 @@ class LocationsController < ApplicationController
   # POST /locations
   # POST /locations.json
   def create
-    sql = "INSERT INTO Location (address, phoneNum) VALUES ('#{location_params[:address]}', '#{location_params[:phoneNum]}')"
+    sql = "INSERT INTO Location (address, phoneNum) " \
+    "VALUES ('#{location_params[:address]}', '#{location_params[:phoneNum]}')"
     ActiveRecord::Base.connection.exec_insert(sql)
 
     key_query = 'SELECT LAST_INSERT_ID()'
@@ -51,7 +52,10 @@ class LocationsController < ApplicationController
   # PATCH/PUT /locations/1
   # PATCH/PUT /locations/1.json
   def update
-    sql = "UPDATE Location SET address = '#{location_params[:address]}', phoneNum = '#{location_params[:phoneNum]}' WHERE locationId = #{params[:id]}"
+    sql = "UPDATE Location SET " \
+    "address = '#{location_params[:address]}', " \
+    "phoneNum = '#{location_params[:phoneNum]}' " \
+    "WHERE locationId = #{params[:id]}"
     rows_updated = ActiveRecord::Base.connection.exec_update(sql)
 
     query = "SELECT * FROM Location WHERE locationId = #{params[:id]}"
