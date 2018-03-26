@@ -4,12 +4,15 @@ class RoomsController < ApplicationController
   # GET /rooms
   # GET /rooms.json
   def index
-    @rooms = Room.all
+    query = 'SELECT * FROM Room'
+    @rooms = Room.find_by_sql(query)
   end
 
   # GET /rooms/1
   # GET /rooms/1.json
   def show
+    query = "SELECT * FROM Room WHERE roomId = #{params[:id]}"
+    @room = Room.find_by_sql(query).first
   end
 
   # GET /rooms/new
@@ -54,7 +57,8 @@ class RoomsController < ApplicationController
   # DELETE /rooms/1
   # DELETE /rooms/1.json
   def destroy
-    @room.destroy
+    sql = "DELETE FROM Room WHERE roomId = #{params[:id]}"
+    ActiveRecord::Base.connection.execute(sql)
     respond_to do |format|
       format.html { redirect_to rooms_url, notice: 'Room was successfully destroyed.' }
       format.json { head :no_content }
