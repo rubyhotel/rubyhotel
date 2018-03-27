@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  get 'login/index'
+  get 'home/index'
 
-  root 'login#index'
+  root 'home#index'
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
