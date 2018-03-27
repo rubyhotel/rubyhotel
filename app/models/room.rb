@@ -1,3 +1,3 @@
 class Room < ApplicationRecord
-  belongs_to :Location
+  self.table_name = "Room"
 end
