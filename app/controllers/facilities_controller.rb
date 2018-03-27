@@ -27,8 +27,11 @@ class FacilitiesController < ApplicationController
   # POST /facilities
   # POST /facilities.json
   def create
+    # take parameter as quote to escape apostrophes
+    qname = ActiveRecord::Base.connection.quote(facility_params[:name])
+
     sql = "INSERT INTO Facility (name, facType, pricing, locationId) " \
-    "VALUES ('#{facility_params[:name]}', '#{facility_params[:facType]}', " \
+    "VALUES (#{qname}, '#{facility_params[:factype]}', " \
     "#{facility_params[:pricing]}, #{facility_params[:locationId]})"
     ActiveRecord::Base.connection.exec_insert(sql)
 
@@ -53,9 +56,12 @@ class FacilitiesController < ApplicationController
   # PATCH/PUT /facilities/1
   # PATCH/PUT /facilities/1.json
   def update
+    # take parameter as quote to escape apostrophes
+    qname = ActiveRecord::Base.connection.quote(facility_params[:name])
+
     sql = "UPDATE Facility SET " \
-    "name = '#{facility_params[:name]}', " \
-    "facType = '#{facility_params[:facType]}', " \
+    "name = #{qname}, " \
+    "facType = '#{facility_params[:factype]}', " \
     "pricing = '#{facility_params[:pricing]}', " \
     "locationId = '#{facility_params[:locationId]}' " \
     "WHERE locationId = #{params[:id]}"
@@ -96,6 +102,6 @@ class FacilitiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def facility_params
-      params.require(:facility).permit(:name, :type, :price, :Location_id)
+      params.require(:facility).permit(:name, :factype, :pricing, :locationId)
     end
 end
