@@ -64,7 +64,7 @@ class FacilitiesController < ApplicationController
     "facType = '#{facility_params[:factype]}', " \
     "pricing = '#{facility_params[:pricing]}', " \
     "locationId = '#{facility_params[:locationId]}' " \
-    "WHERE locationId = #{params[:id]}"
+    "WHERE facilityId = #{params[:id]}"
     rows_updated = ActiveRecord::Base.connection.exec_update(sql)
 
     query = "SELECT * FROM Facility WHERE facilityId = #{params[:id]}"
