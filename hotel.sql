@@ -153,7 +153,25 @@ VALUES (5, 'Trash Palace', 'weight room', 0, 5);
 # ROOMS
 INSERT INTO
   Room (roomId, roomNum, amenities, isVacant, isClean, locationId)
-VALUES (1, 101, 'internet, 2 bath, 1 king size bed', FALSE, TRUE, 1);
+VALUES (1, 101, 'internet, 2 bath, 1 king size bed', TRUE, TRUE, 1);
+
+# Start of Sam's rooms
+INSERT INTO
+  Room (roomId, roomNum, amenities, isVacant, isClean, locationId)
+VALUES (6, 102, 'internet, 2 bath, 1 king size bed', TRUE, TRUE, 1);
+
+INSERT INTO
+  Room (roomId, roomNum, amenities, isVacant, isClean, locationId)
+VALUES (7, 103, 'internet, 2 bath, 1 king size bed', TRUE, TRUE, 1);
+
+INSERT INTO
+  Room (roomId, roomNum, amenities, isVacant, isClean, locationId)
+VALUES (8, 104, 'internet, 2 bath, 1 king size bed', TRUE, TRUE, 1);
+
+INSERT INTO
+  Room (roomId, roomNum, amenities, isVacant, isClean, locationId)
+VALUES (9, 105, 'internet, 2 bath, 1 king size bed', TRUE, TRUE, 1);
+#End of Sam's rooms
 
 INSERT INTO
   Room (roomId, roomNum, amenities, isVacant, isClean, locationId)
@@ -176,7 +194,7 @@ INSERT INTO Booking (bookingId, cost, inDate, outDate, numOfGuests)
 VALUES (1, 100, '2018-01-01', '2018-01-05', 1);
 
 INSERT INTO Booking (bookingId, cost, inDate, outDate, numOfGuests)
-VALUES (2, 400, '2018-01-02', '2018-01-10', 4);
+VALUES (2, 400, '2018-01-01', '2018-01-05', 4);
 
 INSERT INTO Booking (bookingId, cost, inDate, outDate, numOfGuests)
 VALUES (3, 1000, '2018-01-02', '2018-01-08', 3);
@@ -216,7 +234,7 @@ INSERT INTO Reserve (
   roomNum,
   locationId,
   guestId)
-VALUES (2, 101, 2, 2);
+VALUES (2, 102, 1, 1);
 
 INSERT INTO Reserve (
   bookingId,
