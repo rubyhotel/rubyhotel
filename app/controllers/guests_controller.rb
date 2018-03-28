@@ -52,23 +52,30 @@ class GuestsController < ApplicationController
   # PATCH/PUT /guests/1
   # PATCH/PUT /guests/1.json
   def update
-    sql = "UPDATE Guest SET " \
+
+    if guest_params[:creditCardNum].length != 16
+      redirect_to edit_guest_path, notice: 'Credit Card Number should be 16 digits!'
+      elsif guest_params[:phoneNum].length != 10
+    redirect_to edit_guest_path, notice: 'Phone Number should be 10 digits!'
+    else
+      sql = "UPDATE Guest SET " \
     "name = '#{guest_params[:name]}', " \
     "phoneNum = '#{guest_params[:phoneNum]}', " \
     "creditCardNum = '#{guest_params[:creditCardNum]}' " \
     "WHERE guestId = #{params[:id]}"
-    rows_updated = ActiveRecord::Base.connection.exec_update(sql)
+      rows_updated = ActiveRecord::Base.connection.exec_update(sql)
 
-    query = "SELECT * FROM Guest WHERE guestId = #{params[:id]}"
-    @guest = Guest.find_by_sql(query).first
+      query = "SELECT * FROM Guest WHERE guestId = #{params[:id]}"
+      @guest = Guest.find_by_sql(query).first
 
-    respond_to do |format|
-      if rows_updated == 1
-        format.html { redirect_to @guest, notice: 'Guest was successfully updated.' }
-        format.json { render :show, status: :ok, location: @guest }
-      else
-        format.html { render :edit }
-        format.json { render json: @guest.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if rows_updated == 1
+          format.html { redirect_to @guest, notice: 'Guest was successfully updated.' }
+          format.json { render :show, status: :ok, location: @guest }
+        else
+          format.html { render :edit }
+          format.json { render json: @guest.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
