@@ -1,11 +1,9 @@
 Rails.application.routes.draw do
-  get 'home/index'
-
   root 'home#index'
 
-  get '/login', to: 'sessions#new'
-  post '/login', to: 'sessions#create'
-  delete '/logout', to: 'sessions#destroy'
+  get 'login', to: 'home#log_in'
+  post 'login', to: 'home#submit'
+  post 'logout', to: 'home#log_out'
 
   resources :reserves
   resources :employees

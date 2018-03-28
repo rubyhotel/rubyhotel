@@ -1,3 +1,5 @@
 <h1>Welcome to Ruby Hotel!</h1>
-<%= link_to "Guest Login", "/login" %>
+<%= link_to "Guest Login", login_path(:user => "guest") %>
+<br>
+<%= link_to "Employee Login", login_path(:user => "employee") %>
 
