@@ -1,6 +1,8 @@
 <h1> Welcome <%= @guest.name %>!</h1>
 
-<h1>Bookings</h1>
+<br>
+
+<h1><u>Bookings</u></h1>
 
 <table>
   <thead>
@@ -26,6 +28,32 @@
   <% end %>
   </tbody>
 </table>
+
+<br>
+
+<h1><u>My Information</u></h1>
+
+<p>
+  <strong>Username:</strong>
+  <%= @guest.username %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @guest.name %>
+</p>
+
+<p>
+  <strong>Phone Number:</strong>
+  <%= @guest.phoneNum %>
+</p>
+
+<p>
+  <strong>Credit Card Number:</strong>
+  <%= @guest.creditCardNum %>
+</p>
+
+<%= link_to "Edit my Personal Information", edit_guest_info_path %>
 
 
 

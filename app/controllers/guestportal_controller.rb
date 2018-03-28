@@ -7,12 +7,15 @@ class GuestportalController < ApplicationController
     bookingquery = "SELECT * FROM Reserve r JOIN Booking b ON r.bookingId = b.bookingId WHERE r.guestId = #{params[:id]}"
     @bookings = ActiveRecord::Base.connection.exec_query(bookingquery).to_hash
 
-
-
   end
 
-  def edit
+  def bookingedit
     @booking = Booking.find(params[:id])
   end
+
+  def infoedit
+    @guest = Guest.find(params[:id])
+  end
+
 
 end

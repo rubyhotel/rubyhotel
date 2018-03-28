@@ -58,9 +58,9 @@ class BookingsController < ApplicationController
 
     outdate = "#{booking_params["outDate(1i)"]}" + "-" "#{booking_params["outDate(2i)"]}" + "-" "#{booking_params["outDate(3i)"]}" + "-" "#{booking_params["outDate(4i)"]}" + "-" "#{booking_params["outDate(5i)"]}"
 
+    cost = booking_params[:cost] ? "cost = '#{booking_params[:cost]}', " : ""
 
-    sql = "UPDATE Booking SET " \
-    "cost = '#{booking_params[:cost]}', " \
+    sql = "UPDATE Booking SET " + cost +
     "inDate = '#{indate}', " \
     "outDate = '#{outdate}', " \
     "numOfGuests = '#{booking_params[:numOfGuests]}' " \
