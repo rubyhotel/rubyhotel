@@ -8,6 +8,7 @@ DROP TABLE Location;
 
 CREATE TABLE Location (
   locationId INT(11) AUTO_INCREMENT,
+  locationName CHAR(100),
   address    CHAR(100)     NOT NULL,
   phoneNum   CHAR(10),
   PRIMARY KEY (locationId)
@@ -83,20 +84,20 @@ CREATE TABLE Reserve (
 # GENERATE DUMMY DATA
 
 # LOCATIONS
-INSERT INTO Location (locationId, address, phoneNum)
-VALUES (1, '1234 Street St', '7781235465');
+INSERT INTO Location (locationId, locationName, address, phoneNum)
+VALUES (1, 'Holiday Inn','1234 Street St', '7781235465');
 
-INSERT INTO Location (locationId, address, phoneNum)
-VALUES (2, '4321 Alley St', '7781235475');
+INSERT INTO Location (locationId, locationName, address, phoneNum)
+VALUES (2, 'Pan Pacific Hotel','4321 Alley St', '7781235475');
 
-INSERT INTO Location (locationId, address, phoneNum)
-VALUES (3, '1579 Road St', '7781235485');
+INSERT INTO Location (locationId, locationName, address, phoneNum)
+VALUES (3, 'Motel 21','1579 Road St', '7781235485');
 
-INSERT INTO Location (locationId, address, phoneNum)
-VALUES (4, '1579 Sidewalk St', '7783235475');
+INSERT INTO Location (locationId, locationName, address, phoneNum)
+VALUES (4, 'Best Western','1579 Sidewalk St', '7783235475');
 
-INSERT INTO Location (locationId, address, phoneNum)
-VALUES (5, '1579 Port St', '7783435475');
+INSERT INTO Location (locationId, locationName, address, phoneNum)
+VALUES (5, 'Hilton','1579 Port St', '7783435475');
 
 # EMPLOYEE
 INSERT INTO

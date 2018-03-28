@@ -4,7 +4,7 @@ class GuestportalController < ApplicationController
     query = "SELECT * FROM Guest WHERE guestId = #{params[:id]}"
     @guest = Guest.find_by_sql(query).first
 
-    bookingquery = "SELECT * FROM Reserve r JOIN Booking b ON r.bookingId = b.bookingId WHERE r.guestId = #{params[:id]}"
+    bookingquery = "SELECT * FROM Reserve r JOIN Booking b ON r.bookingId = b.bookingId JOIN Location l ON r.locationId = l.locationId WHERE r.guestId = #{params[:id]}"
     @bookings = ActiveRecord::Base.connection.exec_query(bookingquery).to_hash
 
   end
@@ -15,6 +15,8 @@ class GuestportalController < ApplicationController
 
   def bookingcreate
     @guestId = Guest.find(params[:id]).guestId
+    allLocationsQuery = "SELECT locationName FROM Location"
+    @locations = Location.find_by_sql(allLocationsQuery)
   end
 
   def infoedit
@@ -55,6 +57,16 @@ class GuestportalController < ApplicationController
       ActiveRecord::Base.connection.exec_insert(reserveSql)
 
       redirect_to "/guestportal/#{params[:guestId]}"
+    end
+  end
+
+  def deletebooking
+    sql = "DELETE FROM Booking WHERE bookingId = #{params[:bookingId]}"
+    ActiveRecord::Base.connection.execute(sql)
+
+    respond_to do |format|
+      format.html { redirect_to "/guestportal/#{params[:guestId]}", notice: 'Booking was successfully destroyed.' }
+      format.json { head :no_content }
     end
   end
 end
