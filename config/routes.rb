@@ -1,9 +1,18 @@
 Rails.application.routes.draw do
+
+  get 'guestportal/index'
+
+  get 'home/index'
+
   root 'home#index'
 
   get 'login', to: 'home#log_in'
   post 'login', to: 'home#submit'
   post 'logout', to: 'home#log_out'
+
+  get '/guestportal/:id', to: 'guestportal#index', as: 'guest_portal'
+  get '/guestportal/:id/bookingedit', to: 'guestportal#bookingedit', as: 'edit_guest_booking'
+  get '/guestportal/:id/infoedit', to: 'guestportal#infoedit', as: 'edit_guest_info'
 
   resources :reserves
   resources :employees
