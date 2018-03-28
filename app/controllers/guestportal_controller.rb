@@ -12,5 +12,7 @@ class GuestportalController < ApplicationController
   end
 
   def edit
+    @booking = Booking.find(params[:id])
   end
+
 end
