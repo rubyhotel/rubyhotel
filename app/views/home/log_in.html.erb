@@ -1,0 +1,16 @@
+<% provide(:title, "Log in") %>
+<h1>Log in</h1>
+
+<% if @error %>
+  <p style="color:red">Invalid username and/or password combination</p>
+<% end %>
+
+<%= form_tag(login_path(:user => @user)) do %>
+  <%= label_tag :username, "Username" %>
+  <%= text_field_tag :username %>
+  <%= label_tag :password, "Password" %>
+  <%= password_field_tag :password %>
+  <br>
+  <br>
+  <%= submit_tag "Log In" %>
+<% end %>
