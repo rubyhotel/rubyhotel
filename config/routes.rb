@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   post 'login', to: 'home#submit'
   post 'logout', to: 'home#log_out'
 
+  get '/employeeportal/guestsearch', to: 'employeeportal#search', as: 'search_guest'
+  get '/employeeportal/:id', to: 'employeeportal#index'
+
   resources :reserves
   resources :employees
   resources :guests

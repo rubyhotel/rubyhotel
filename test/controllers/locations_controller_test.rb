@@ -23,7 +23,7 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to location_url(Location.last)
   end
 
-  test "should show location" do
+  test "should index location" do
     get location_url(@location)
     assert_response :success
   end
