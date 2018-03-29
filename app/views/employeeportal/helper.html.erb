@@ -26,7 +26,7 @@
         <td><%= booking.numOfGuests %></td>
         <td><%= link_to 'Show', show_ghelper_path(:id => params[:id], :gid => params[:gid], :bid => booking.bookingId) %></td>
         <td><%= link_to 'Edit', edit_ghelper_path(:id => params[:id], :gid => params[:gid], :bid => booking.bookingId) %></td>
-        <td><%= link_to 'Destroy', booking, method: :delete, data: {confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Destroy', del_ghelper_path(:id => params[:id], :gid => params[:gid], :bid => booking.bookingId), method: :delete, data: {confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

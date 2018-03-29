@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   post 'logout', to: 'home#log_out'
 
   get '/employeeportal/:id/guesthelp/:gid', to: 'employeeportal#helper', as: 'ghelper'
+  delete '/employeeportal/:id/guesthelp/:gid/:bid', to: 'employeeportal#destroy', as: 'del_ghelper'
   get '/employeeportal/:id/guestsearch', to: 'employeeportal#search', as: 'search_guest'
   post '/employeeportal/:id/guesthelp/:gid', to: 'employeeportal#new', as: 'new_ghelper'
   get '/employeeportal/:id/guesthelp/:gid/booking/:bid', to: 'employeeportal#show', as: 'show_ghelper'

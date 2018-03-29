@@ -107,11 +107,11 @@ class EmployeeportalController < ApplicationController
   # DELETE /guests/1
   # DELETE /guests/1.json
   def destroy
-    sql = "DELETE FROM Guest WHERE guestId = #{params[:id]}"
-    ActiveRecord::Base.connection.execute(sql)
+    query = "DELETE FROM Booking WHERE Booking.bookingId = #{params[:bid]}"
+    ActiveRecord::Base.connection.execute(query)
 
     respond_to do |format|
-      format.html { redirect_to guests_url, notice: 'Guest was successfully destroyed.' }
+      format.html { redirect_to ghelper_path(:id => params[:id], :gid => params[:gid]), notice: 'Booking was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
