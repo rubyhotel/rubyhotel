@@ -20,9 +20,9 @@
   <tbody>
   <% @bookings.each do |booking| %>
     <tr>
-      <td><%= booking['cost'] %></td>
-      <td><%= booking['inDate'] %></td>
-      <td><%= booking['outDate'] %></td>
+      <td>$<%= booking['cost'] %></td>
+      <td><%= booking['inDate'].to_date %></td>
+      <td><%= booking['outDate'].to_date %></td>
       <td><%= booking['numOfGuests'] %></td>
       <td><%= booking['locationName'] %></td>
       <td><%= booking['roomNum'] %></td>
@@ -33,7 +33,7 @@
   </tbody>
 </table>
 
-<br>
+<p id="notice"><%= notice.html_safe unless notice.blank? %></p>
 
 <%= link_to "New booking", create_guest_booking_path %>
 
