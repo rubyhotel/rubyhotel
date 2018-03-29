@@ -39,6 +39,38 @@ class EmployeeportalController < ApplicationController
 
   # GET /guests/1/edit
   def edit
+    query = "SELECT * FROM Booking WHERE Booking.bookingId=#{params[:bid]}"
+    @booking = Booking.find_by_sql(query).first
+  end
+
+  def update
+
+    indate = "#{booking_params["inDate(1i)"]}" + "-" "#{booking_params["inDate(2i)"]}" + "-" "#{booking_params["inDate(3i)"]}" + "-" "#{booking_params["inDate(4i)"]}" + "-" "#{booking_params["inDate(5i)"]}"
+
+    outdate = "#{booking_params["outDate(1i)"]}" + "-" "#{booking_params["outDate(2i)"]}" + "-" "#{booking_params["outDate(3i)"]}" + "-" "#{booking_params["outDate(4i)"]}" + "-" "#{booking_params["outDate(5i)"]}"
+
+    cost = booking_params[:cost] ? "cost = '#{booking_params[:cost]}', " : ""
+
+    sql = "UPDATE Booking SET " + cost +
+          "inDate = '#{indate}', " \
+          "outDate = '#{outdate}', " \
+          "numOfGuests = '#{booking_params[:numOfGuests]}' " \
+          "WHERE bookingId = #{params[:id]}"
+
+    rows_updated = ActiveRecord::Base.connection.exec_update(sql)
+
+    query = "SELECT * FROM Booking WHERE bookingId = #{params[:id]}"
+    @booking = Booking.find_by_sql(query).first
+
+    respond_to do |format|
+      if rows_updated == 1
+        format.html { redirect_to @booking, notice: 'Booking was successfully updated.' }
+        format.json { render :show, status: :ok, location: @booking }
+      else
+        format.html { render :edit }
+        format.json { render json: @booking.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def show
@@ -68,30 +100,6 @@ class EmployeeportalController < ApplicationController
       else
         format.html { render :new }
         format.json { render json: @booking.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /guests/1
-  # PATCH/PUT /guests/1.json
-  def update
-    sql = "UPDATE Guest SET " \
-    "name = '#{guest_params[:name]}', " \
-    "phoneNum = '#{guest_params[:phoneNum]}', " \
-    "creditCardNum = '#{guest_params[:creditCardNum]}' " \
-    "WHERE guestId = #{params[:id]}"
-    rows_updated = ActiveRecord::Base.connection.exec_update(sql)
-
-    query = "SELECT * FROM Guest WHERE guestId = #{params[:id]}"
-    @guest = Guest.find_by_sql(query).first
-
-    respond_to do |format|
-      if rows_updated == 1
-        format.html { redirect_to @guest, notice: 'Guest was successfully updated.' }
-        format.json { render :index, status: :ok, location: @guest }
-      else
-        format.html { render :edit }
-        format.json { render json: @guest.errors, status: :unprocessable_entity }
       end
     end
   end

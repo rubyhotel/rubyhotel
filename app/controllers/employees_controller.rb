@@ -15,15 +15,6 @@ class EmployeesController < ApplicationController
     @employee = Employee.find_by_sql(query).first
   end
 
-  # GET /employees/new
-  def new
-    @employee = Employee.new
-  end
-
-  # GET /employees/1/edit
-  def edit
-  end
-
   # POST /employees
   # POST /employees.json
   def create
@@ -53,26 +44,30 @@ class EmployeesController < ApplicationController
   # PATCH/PUT /employees/1
   # PATCH/PUT /employees/1.json
   def update
-    sql = "UPDATE Employee SET " \
-    "name = '#{employee_params[:name]}', " \
-    "phoneNum = '#{employee_params[:phoneNum]}', " \
-    "position = '#{employee_params[:position]}', " \
-    "hourlyRate = #{employee_params[:hourlyRate]}, " \
-    "startDate = '#{employee_params[:startDate]}', " \
-    "locationId = #{employee_params[:locationId]} " \
-    "WHERE employeeId = #{params[:id]}"
+    indate = "#{booking_params["inDate(1i)"]}" + "-" "#{booking_params["inDate(2i)"]}" + "-" "#{booking_params["inDate(3i)"]}" + "-" "#{booking_params["inDate(4i)"]}" + "-" "#{booking_params["inDate(5i)"]}"
+
+    outdate = "#{booking_params["outDate(1i)"]}" + "-" "#{booking_params["outDate(2i)"]}" + "-" "#{booking_params["outDate(3i)"]}" + "-" "#{booking_params["outDate(4i)"]}" + "-" "#{booking_params["outDate(5i)"]}"
+
+    cost = booking_params[:cost] ? "cost = '#{booking_params[:cost]}', " : ""
+
+    sql = "UPDATE Booking SET " + cost +
+          "inDate = '#{indate}', " \
+          "outDate = '#{outdate}', " \
+          "numOfGuests = '#{booking_params[:numOfGuests]}' " \
+          "WHERE bookingId = #{params[:id]}"
+
     rows_updated = ActiveRecord::Base.connection.exec_update(sql)
 
-    query = "SELECT * FROM Location WHERE locationId = #{params[:id]}"
-    @location = Location.find_by_sql(query).first
+    query = "SELECT * FROM Booking WHERE bookingId = #{params[:id]}"
+    @booking = Booking.find_by_sql(query).first
 
     respond_to do |format|
       if rows_updated == 1
-        format.html { redirect_to @employee, notice: 'Employee was successfully updated.' }
-        format.json { render :show, status: :ok, location: @employee }
+        format.html { redirect_to @booking, notice: 'Booking was successfully updated.' }
+        format.json { render :show, status: :ok, location: @booking }
       else
         format.html { render :edit }
-        format.json { render json: @employee.errors, status: :unprocessable_entity }
+        format.json { render json: @booking.errors, status: :unprocessable_entity }
       end
     end
   end
