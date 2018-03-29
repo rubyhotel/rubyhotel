@@ -27,8 +27,8 @@ class GuestsController < ApplicationController
   # POST /guests
   # POST /guests.json
   def create
-    sql = "INSERT INTO Guest (name, phoneNum, creditCardNum) " \
-    "VALUES ('#{guest_params[:name]}', '#{guest_params[:phoneNum]}', '#{guest_params[:creditCardNum]}')"
+    sql = "INSERT INTO Guest (name, username, password, phoneNum, creditCardNum) " \
+    "VALUES ('#{guest_params[:name]}', '#{guest_params[:username]}', '#{guest_params[:password]}', '#{guest_params[:phoneNum]}', '#{guest_params[:creditCardNum]}')"
     ActiveRecord::Base.connection.exec_insert(sql)
 
     key_query = 'SELECT LAST_INSERT_ID()'
@@ -40,7 +40,7 @@ class GuestsController < ApplicationController
     respond_to do |format|
       if results.length == 1
         @guest = results.first
-        format.html { redirect_to @guest, notice: 'Guest was successfully created.' }
+        format.html { redirect_to login_path(:user => "guest"), notice: 'Guest was successfully created.' }
         format.json { render :show, status: :created, location: @guest }
       else
         format.html { render :new }
@@ -101,6 +101,6 @@ class GuestsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def guest_params
-      params.require(:guest).permit(:name, :phoneNum, :creditCardNum)
+      params.require(:guest).permit(:name, :username, :password, :phoneNum, :creditCardNum)
     end
 end
