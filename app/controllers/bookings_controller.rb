@@ -11,7 +11,7 @@ class BookingsController < ApplicationController
   # GET /bookings/1
   # GET /bookings/1.json
   def show
-    query = "SELECT * FROM Booking WHERE bookingId = #{params[:id]}"
+    query = "SELECT * FROM Booking WHERE bookingId = #{@booking[:bookingid]}"
     @booking = Booking.find_by_sql(query).first
   end
 

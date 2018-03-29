@@ -15,43 +15,59 @@ class EmployeeportalController < ApplicationController
   end
 
   def search
-    query = "SELECT guestId FROM Guest WHERE Guest.guestId = #{params[:gid]}"
-    @guests = Guest.find_by_sql(query)
+    if params[:gid] == ''
+      puts 'Guest ID for search cannot be blank.'
+      redirect_to eportal_path :id => params[:id], :error => true
+    else
+      query = "SELECT guestId FROM Guest WHERE Guest.guestId = #{params[:gid]}"
+      @guests = Guest.find_by_sql(query)
 
-    redirect_to "/guests/#{params[:gid]}"
-
+      redirect_to "/employeeportal/#{params[:id]}/guesthelp/#{params[:gid]}"
+    end
   end
 
-  # GET /guests/new
-  def new
-    @guest = Guest.new
+  # GET /guests/guestsearch/:gid
+  def helper
+    query = "SELECT * FROM Guest WHERE Guest.guestId=#{params[:gid]}"
+    @guest = Guest.find_by_sql(query).first
+
+    query = "SELECT * FROM Booking INNER JOIN Reserve ON Booking.bookingId=Reserve.bookingId "\
+            "INNER JOIN Location ON Reserve.locationId=Location.locationId "\
+            "WHERE Reserve.guestId=#{params[:gid]}"
+    @gbookings = Booking.find_by_sql(query)
   end
 
   # GET /guests/1/edit
   def edit
   end
 
+  def show
+    query = "SELECT * FROM Booking WHERE Booking.bookingId=#{params[:bid]}"
+    @booking = Booking.find_by_sql(query).first
+  end
+
   # POST /guests
   # POST /guests.json
   def create
-    sql = "INSERT INTO Guest (name, phoneNum, creditCardNum) " \
-    "VALUES ('#{guest_params[:name]}', '#{guest_params[:phoneNum]}', '#{guest_params[:creditCardNum]}')"
+    sql = "INSERT INTO Booking (cost, inDate, outDate, numOfGuests) " \
+    "VALUES (#{booking_params[:cost]}, '#{booking_params[:inDate]}', " \
+    "'#{booking_params[:outDate]}', #{booking_params[:numOfGuests]})"
     ActiveRecord::Base.connection.exec_insert(sql)
 
     key_query = 'SELECT LAST_INSERT_ID()'
     pkey = ActiveRecord::Base.connection.execute(key_query).first.first
 
-    query = "SELECT * FROM Guest WHERE guestId = #{pkey}"
-    results = Guest.find_by_sql(query)
+    query = "SELECT * FROM Booking WHERE bookingId = #{pkey}"
+    results = Location.find_by_sql(query)
 
     respond_to do |format|
       if results.length == 1
-        @guest = results.first
-        format.html { redirect_to @guest, notice: 'Guest was successfully created.' }
-        format.json { render :index, status: :created, location: @guest }
+        @booking = results.first
+        format.html { redirect_to @booking, notice: 'Booking was successfully created.' }
+        format.json { render :show, status: :created, location: @booking }
       else
         format.html { render :new }
-        format.json { render json: @guest.errors, status: :unprocessable_entity }
+        format.json { render json: @booking.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -92,15 +108,4 @@ class EmployeeportalController < ApplicationController
     end
   end
 
-  private
-  # Use callbacks to share common setup or constraints between actions.
-  def set_guest
-    query = "SELECT * FROM Guest WHERE guestId = #{params[:id]}"
-    @guest = Guest.find_by_sql(query).first
-  end
-
-  # Never trust parameters from the scary internet, only allow the white list through.
-  def guest_params
-    params.require(:guest).permit(:name, :phoneNum, :creditCardNum)
-  end
 end

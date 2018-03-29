@@ -1,13 +1,18 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Welcome <%= @employee[:name] %> !</h1>
+<h1>Welcome <%= @employee[:name] %>!</h1>
 
 <p>Your current location is <%= @employee[:address] %>.</p>
 <p>This location's phone number is <%= @employee[:phoneNum] %>.</p>
 <br>
 
 <h2>Help a Guest:</h2>
-<%= form_tag(search_guest_path(:gid => :gid), method: :get) do %>
+
+<% if @error %>
+  <p style="color:red">Must identify guest by Guest ID.</p>
+<% end %>
+
+<%= form_tag(search_guest_path(:id => @employee[:employeeId], :gid => :gid), method: :get) do %>
   <%= label_tag :gid, "Guest ID" %>
   <%= text_field_tag :gid %>
   <br>

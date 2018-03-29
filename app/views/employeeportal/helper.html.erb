@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Bookings for <%= @guest[:name] %> </h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Location ID</th>
+      <th>Address</th>
+      <th>Room No.</th>
+      <th>In-Date</th>
+      <th>Out-Date</th>
+      <th>Number of Guests</th>
+      <th colspan="4"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @gbookings.each do |booking| %>
+      <tr>
+        <td><%= booking.locationId %></td>
+        <td><%= booking.address %></td>
+        <td><%= booking.roomNum %></td>
+        <td><%= booking.inDate %></td>
+        <td><%= booking.outDate %></td>
+        <td><%= booking.numOfGuests %></td>
+        <td><%= link_to 'Show', show_ghelper_path(:id => params[:id], :gid => params[:gid], :bid => booking.bookingId) %></td>
+        <td><%= link_to 'Edit', edit_ghelper_path(booking) %></td>
+        <td><%= link_to 'Destroy', booking, method: :delete, data: {confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Create New Booking', new_ghelper_path %>
+<br>
+<%= link_to 'Back', eportal_path(:id => params[:id]) %>
+
