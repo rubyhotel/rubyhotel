@@ -1,0 +1,49 @@
+<% provide(:title, "Create Booking") %>
+<h1>Create new booking</h1>
+<br>
+
+<% if @error %>
+  <p style="color:red">No rooms available</p>
+<% end %>
+
+<%= form_tag createbooking_path do %>
+
+
+  <%= label_tag :roomNum, "show Room Number" %>
+  <%= check_box_tag :roomNum, checked = true %>
+
+  <%= label_tag :amenities, "show amenities" %>
+  <%= check_box_tag :amenities, checked = true %>
+
+  <%= label_tag :locationName, "show Location Name" %>
+  <%= check_box_tag :locationName, checked = true %>
+
+  <%= label_tag :locationAddress, "show Location Address" %>
+  <%= check_box_tag :locationAddress, checked = true %>
+
+  <p id="notice"><%= alert %></p>
+
+  <br>
+  <br>
+  <br>
+
+
+  <%= label_tag :guestId, "Guest Id" %>
+  <%= text_field_tag :guestId, @guestId, :readonly => true %>
+  <%= label_tag :locationId, "LocationId" %>
+  <%= select_tag :locationId, options_for_select([1, 2, 3, 4, 5]) %>
+  <%= label_tag :inDate, "In Date" %>
+  <%= date_select :inDate, nil%>
+  <%= label_tag :outDate, "Out Date" %>
+  <%= date_select :outDate, nil%>
+  <%= label_tag :numOfGuests, "Number of guests" %>
+  <%= text_field_tag :numOfGuests %>
+  <br>
+  <br>
+  <%= submit_tag "Create Booking" %>
+<% end %>
+
+
+<%= link_to 'Back', "/guestportal/#{@guestId}" %>
+
+<p id="notice"><%= notice.html_safe unless notice.blank? %></p>

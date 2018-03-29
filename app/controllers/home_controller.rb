@@ -19,7 +19,7 @@ class HomeController < ApplicationController
         redirect_to login_path :user => user_type, :error => true
       else
         puts 'success'
-        redirect_to guest
+        redirect_to "/guestportal/#{guest.id}"
       end
     elsif user_type == 'employee'
       #retrieve username from database

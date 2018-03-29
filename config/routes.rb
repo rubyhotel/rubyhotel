@@ -13,6 +13,9 @@ Rails.application.routes.draw do
   get '/guestportal/:id', to: 'guestportal#index', as: 'guest_portal'
   get '/guestportal/:id/bookingedit', to: 'guestportal#bookingedit', as: 'edit_guest_booking'
   get '/guestportal/:id/infoedit', to: 'guestportal#infoedit', as: 'edit_guest_info'
+  get '/guestportal/:id/bookingcreate', to: 'guestportal#bookingcreate', as: 'create_guest_booking'
+  post 'createbooking', to: 'guestportal#submit'
+  delete 'deletebooking', to: 'guestportal#deletebooking'
 
   resources :reserves
   resources :employees
