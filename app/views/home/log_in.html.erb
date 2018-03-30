@@ -5,6 +5,8 @@
   <p style="color:red">Invalid username and/or password combination</p>
 <% end %>
 
+<p id="notice"><%= notice %></p>
+
 <%= form_tag(login_path(:user => @user)) do %>
   <%= label_tag :username, "Username" %>
   <%= text_field_tag :username %>
@@ -14,3 +16,6 @@
   <br>
   <%= submit_tag "Log In" %>
 <% end %>
+
+<br>
+<%= link_to 'Create New Guest', new_guest_path %>
