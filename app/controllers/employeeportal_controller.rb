@@ -95,7 +95,7 @@ class EmployeeportalController < ApplicationController
     cost = 50 * params[:numOfGuests].to_f
 
     # check that an unbooked room for the given dates exists
-    roomSql = "SELECT r.roomNum FROM Room r JOIN Location l ON r.locationId = l.locationId WHERE (r.locationId = #{locationId}) AND (r.roomNum NOT IN (SELECT res.roomNum FROM Reserve res JOIN Booking b ON res.bookingId = b.bookingId WHERE res.locationId = #{locationId} AND (('#{indate}' >= b.inDate AND '#{indate}'  < b.outdate) OR ('#{indate}' <= b.indate AND '#{outdate}' >= b.outdate) OR     ('#{indate}' <= b.indate AND '#{outdate}'  > b.indate) OR     ('#{indate}'  >= b.indate AND '#{outdate}' <= b.outdate))))"
+    roomSql = "SELECT r.roomNum FROM Room r JOIN Location l ON r.locationId = l.locationId WHERE (r.locationId = #{locationId}) AND (r.roomNum NOT IN (SELECT res.roomNum FROM Reserve res JOIN Booking b ON res.bookingId = b.bookingId WHERE res.locationId = #{locationId} AND (('#{indate}' >= b.inDate AND '#{indate}'  < b.outDate) OR ('#{indate}' <= b.inDate AND '#{outdate}' >= b.outDate) OR     ('#{indate}' <= b.inDate AND '#{outdate}'  > b.inDate) OR     ('#{indate}'  >= b.inDate AND '#{outdate}' <= b.outDate))))"
     roomNum = ActiveRecord::Base.connection.exec_query(roomSql).first
 
     if roomNum.nil?
