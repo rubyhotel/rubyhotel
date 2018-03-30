@@ -54,9 +54,7 @@ class BookingsController < ApplicationController
   # PATCH/PUT /bookings/1.json
   def update
     indate = "#{booking_params["inDate(1i)"]}" + "-" "#{booking_params["inDate(2i)"]}" + "-" "#{booking_params["inDate(3i)"]}" + "-" "#{booking_params["inDate(4i)"]}" + "-" "#{booking_params["inDate(5i)"]}"
-
     outdate = "#{booking_params["outDate(1i)"]}" + "-" "#{booking_params["outDate(2i)"]}" + "-" "#{booking_params["outDate(3i)"]}" + "-" "#{booking_params["outDate(4i)"]}" + "-" "#{booking_params["outDate(5i)"]}"
-
     cost = booking_params[:cost] ? "cost = '#{booking_params[:cost]}', " : ""
 
     sql = "UPDATE Booking SET " + cost +

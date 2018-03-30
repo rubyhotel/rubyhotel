@@ -187,6 +187,22 @@ VALUES (4, 250, '2018-03-01', '2018-03-05', 2);
 INSERT INTO Booking (bookingId, cost, inDate, outDate, numOfGuests)
 VALUES (5, 350, '2018-01-18', '2018-01-20', 3);
 
+#start of VIP guest bookings
+INSERT INTO Booking (bookingId, cost, inDate, outDate, numOfGuests)
+VALUES (6, 350, '2018-05-18', '2018-05-20', 3);
+
+INSERT INTO Booking (bookingId, cost, inDate, outDate, numOfGuests)
+VALUES (7, 350, '2018-05-18', '2018-05-20', 3);
+
+INSERT INTO Booking (bookingId, cost, inDate, outDate, numOfGuests)
+VALUES (8, 350, '2018-05-18', '2018-05-20', 3);
+
+INSERT INTO Booking (bookingId, cost, inDate, outDate, numOfGuests)
+VALUES (9, 350, '2018-05-18', '2018-05-20', 3);
+
+INSERT INTO Booking (bookingId, cost, inDate, outDate, numOfGuests)
+VALUES (10, 350, '2018-05-18', '2018-05-20', 3);
+
 # GUESTS
 INSERT INTO Guest (guestId, name, username, password, phoneNum, creditCardNum)
 VALUES (1, 'Oprah Winfrey', 'oprahwinfrey', 'password', '7783435475', '4550123456789012');
@@ -202,6 +218,9 @@ VALUES (4, 'Donald Trump', 'donaldtrump', 'password', '8849392023', '45501234567
 
 INSERT INTO Guest (guestId, name, username, password, phoneNum, creditCardNum)
 VALUES (5, 'Arthur Tse', 'arthurtse', 'password', '9913324434', '8849392023034500');
+
+INSERT INTO Guest (guestId, name, username, password, phoneNum, creditCardNum)
+VALUES (6, 'VIP', 'vip', 'password', '9913324430', '8849392023034501');
 
 # Reserve
 INSERT INTO Reserve (
@@ -238,3 +257,41 @@ INSERT INTO Reserve (
   locationId,
   guestId)
 VALUES (5, 115, 5, 5);
+
+#start of VIP guest reserves
+INSERT INTO Reserve (
+  bookingId,
+  roomNum,
+  locationId,
+  guestId)
+VALUES (6, 101, 1, 6);
+
+INSERT INTO Reserve (
+  bookingId,
+  roomNum,
+  locationId,
+  guestId)
+VALUES (7, 101, 2, 6);
+
+INSERT INTO Reserve (
+  bookingId,
+  roomNum,
+  locationId,
+  guestId)
+VALUES (8, 206, 3, 6);
+
+INSERT INTO Reserve (
+  bookingId,
+  roomNum,
+  locationId,
+  guestId)
+VALUES (9, 208, 4, 6);
+
+INSERT INTO Reserve (
+  bookingId,
+  roomNum,
+  locationId,
+  guestId)
+VALUES (10, 115, 5, 6);
+
+

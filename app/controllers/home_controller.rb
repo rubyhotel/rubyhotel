@@ -30,8 +30,16 @@ class HomeController < ApplicationController
         puts 'Invalid username and/or password combination'
         redirect_to login_path :user => user_type, :error => true
       else
-        puts "success"
-        redirect_to "/employeeportal/#{employee.id}"
+        puts 'success'
+        case employee.position
+          when 'manager'
+            puts 'manager position'
+            # change redirect to manager specific portal
+            redirect_to employee
+          else
+            puts 'regular staff'
+            redirect_to "/employeeportal/#{employee.id}"
+        end
       end
     end
   end

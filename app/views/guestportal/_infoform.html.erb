@@ -1,0 +1,21 @@
+<%= form_with(model: guest, local: true) do |form| %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :guest_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :phoneNum %>
+    <%= form.text_field :phoneNum, id: :guest_phoneNum %>
+  </div>
+
+  <div class="field">
+    <%= form.label :creditCardNum %>
+    <%= form.text_field :creditCardNum, id: :guest_creditCardNum %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,60 @@
+<h1> Welcome <%= @guest.name %>!</h1>
+
+<br>
+
+<h1><u>Bookings</u></h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>Cost</th>
+    <th>Indate</th>
+    <th>Outdate</th>
+    <th>Numofguests</th>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @bookings.each do |booking| %>
+    <tr>
+      <td><%= booking['cost'] %></td>
+      <td><%= booking['inDate'] %></td>
+      <td><%= booking['outDate'] %></td>
+      <td><%= booking['numOfGuests'] %></td>
+      <td><%= link_to 'Edit', edit_guest_booking_path(booking) %></td>
+      <td><%= link_to 'Destroy', booking, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<h1><u>My Information</u></h1>
+
+<p>
+  <strong>Username:</strong>
+  <%= @guest.username %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @guest.name %>
+</p>
+
+<p>
+  <strong>Phone Number:</strong>
+  <%= @guest.phoneNum %>
+</p>
+
+<p>
+  <strong>Credit Card Number:</strong>
+  <%= @guest.creditCardNum %>
+</p>
+
+<%= link_to "Edit my Personal Information", edit_guest_info_path %>
+
+
+
+
