@@ -43,8 +43,7 @@ class EmployeeportalController < ApplicationController
     @booking = Booking.find_by_sql(query).first
   end
 
-  def update
-
+  def editpost
     indate = "#{booking_params["inDate(1i)"]}" + "-" "#{booking_params["inDate(2i)"]}" + "-" "#{booking_params["inDate(3i)"]}" + "-" "#{booking_params["inDate(4i)"]}" + "-" "#{booking_params["inDate(5i)"]}"
 
     outdate = "#{booking_params["outDate(1i)"]}" + "-" "#{booking_params["outDate(2i)"]}" + "-" "#{booking_params["outDate(3i)"]}" + "-" "#{booking_params["outDate(4i)"]}" + "-" "#{booking_params["outDate(5i)"]}"
@@ -78,30 +77,45 @@ class EmployeeportalController < ApplicationController
     @booking = Booking.find_by_sql(query).first
   end
 
-  # POST /guests
-  # POST /guests.json
-  def create
-    sql = "INSERT INTO Booking (cost, inDate, outDate, numOfGuests) " \
-    "VALUES (#{booking_params[:cost]}, '#{booking_params[:inDate]}', " \
-    "'#{booking_params[:outDate]}', #{booking_params[:numOfGuests]})"
-    ActiveRecord::Base.connection.exec_insert(sql)
+  def new
+  end
 
-    key_query = 'SELECT LAST_INSERT_ID()'
-    pkey = ActiveRecord::Base.connection.execute(key_query).first.first
+  def newpost
+    # get location
+    query = "SELECT locationId FROM Employee WHERE Employee.employeeId=#{params[:id]}"
+    locationId = ActiveRecord::Base.connection.exec_query(query).first['locationId']
 
-    query = "SELECT * FROM Booking WHERE bookingId = #{pkey}"
-    results = Location.find_by_sql(query)
+    # format dates
+    indate = "#{booking_params["inDate(1i)"]}" + "-" "#{booking_params["inDate(2i)"]}" + "-" "#{booking_params["inDate(3i)"]}" + "-" "#{booking_params["inDate(4i)"]}" + "-" "#{booking_params["inDate(5i)"]}"
+    outdate = "#{booking_params["outDate(1i)"]}" + "-" "#{booking_params["outDate(2i)"]}" + "-" "#{booking_params["outDate(3i)"]}" + "-" "#{booking_params["outDate(4i)"]}" + "-" "#{booking_params["outDate(5i)"]}"
+    cost = 50 * params[:numOfGuests].to_f
 
-    respond_to do |format|
-      if results.length == 1
-        @booking = results.first
-        format.html { redirect_to @booking, notice: 'Booking was successfully created.' }
-        format.json { render :show, status: :created, location: @booking }
-      else
-        format.html { render :new }
-        format.json { render json: @booking.errors, status: :unprocessable_entity }
-      end
+    # check that an unbooked room for the given dates exists
+    roomSql = "SELECT r.roomNum FROM Room r JOIN Location l ON r.locationId = l.locationId WHERE (r.locationId = #{locationId}) AND (r.roomNum NOT IN (SELECT res.roomNum FROM Reserve res JOIN Booking b ON res.bookingId = b.bookingId WHERE res.locationId = #{locationId} AND (('#{indate}' >= b.inDate AND '#{indate}'  < b.outdate) OR ('#{indate}' <= b.indate AND '#{outdate}' >= b.outdate) OR     ('#{indate}' <= b.indate AND '#{outdate}'  > b.indate) OR     ('#{indate}'  >= b.indate AND '#{outdate}' <= b.outdate))))"
+    roomNum = ActiveRecord::Base.connection.exec_query(roomSql).first
+
+    if roomNum.nil?
+      puts 'No room available for the given dates'
+      redirect_to new_ghelper_path(:id => params[:id], :gid => params[:gid]), :notice => "No room available for the given dates"
+    else
+      roomNumVal = roomNum['roomNum']
+
+      # insert new booking
+      sql = "INSERT INTO Booking (cost, inDate, outDate, numOfGuests) " \
+          "VALUES (#{cost}, '#{indate}', " \
+          "'#{outdate}', #{params[:numOfGuests]})"
+      ActiveRecord::Base.connection.exec_insert(sql)
+
+      sql = 'SELECT LAST_INSERT_ID()'
+      bookingId = ActiveRecord::Base.connection.exec_query(sql).first['LAST_INSERT_ID()']
+
+      # insert new reservation
+      sql = "INSERT INTO Reserve (bookingId, roomNum, locationId, guestId) " \
+      "VALUES (#{bookingId}, #{roomNumVal}, #{locationId}, #{params[:gid]})"
+      ActiveRecord::Base.connection.exec_insert(sql)
+      redirect_to ghelper_path(:id => params[:id], :gid => params[:gid]), :notice => "Successfully added new booking."
     end
+
   end
 
   # DELETE /guests/1
@@ -114,6 +128,11 @@ class EmployeeportalController < ApplicationController
       format.html { redirect_to ghelper_path(:id => params[:id], :gid => params[:gid]), notice: 'Booking was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  private
+  def booking_params
+    params.permit(:cost, :inDate, :outDate, :numOfGuests)
   end
 
 end

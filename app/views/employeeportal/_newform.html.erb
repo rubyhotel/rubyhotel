@@ -1,18 +1,15 @@
 <%= form_with(model: booking, local: true) do |form| %>
 
-  <div class="field">
-    <%= form.label :cost %>
-    <%= form.number_field :cost, id: :booking_cost %>
-  </div>
+  <p id="notice"><%= alert %></p>
 
   <div class="field">
     <%= form.label :inDate %>
-    <%= form.datetime_select :inDate, id: :booking_inDate %>
+    <%= form.date_select :inDate, id: :booking_inDate %>
   </div>
 
   <div class="field">
     <%= form.label :outDate %>
-    <%= form.datetime_select :outDate, id: :booking_outDate %>
+    <%= form.date_select :outDate, id: :booking_outDate %>
   </div>
 
   <div class="field">

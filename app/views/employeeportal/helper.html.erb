@@ -15,6 +15,8 @@
     </tr>
   </thead>
 
+  <%= link_to 'Create New Booking', new_ghelper_path(:id => params[:id], :gid => params[:gid]) %>
+  <br>
   <tbody>
     <% @gbookings.each do |booking| %>
       <tr>
@@ -33,8 +35,6 @@
 </table>
 
 <br>
-
-<%= link_to 'Create New Booking', new_ghelper_path %>
 <br>
 <%= link_to 'Back', eportal_path(:id => params[:id]) %>
 
