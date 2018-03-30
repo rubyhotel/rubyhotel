@@ -23,7 +23,7 @@ class EmployeesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to employee_url(Employee.last)
   end
 
-  test "should show employee" do
+  test "should index employee" do
     get employee_url(@employee)
     assert_response :success
   end

@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Bookings for <%= @guest[:name] %> </h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Location ID</th>
+      <th>Address</th>
+      <th>Room No.</th>
+      <th>In-Date</th>
+      <th>Out-Date</th>
+      <th>Number of Guests</th>
+      <th colspan="4"></th>
+    </tr>
+  </thead>
+
+  <%= link_to 'Create New Booking', new_ghelper_path(:id => params[:id], :gid => params[:gid]) %>
+  <br>
+  <tbody>
+    <% @gbookings.each do |booking| %>
+      <tr>
+        <td><%= booking.locationId %></td>
+        <td><%= booking.address %></td>
+        <td><%= booking.roomNum %></td>
+        <td><%= booking.inDate.to_date %></td>
+        <td><%= booking.outDate.to_date %></td>
+        <td><%= booking.numOfGuests %></td>
+        <td><%= link_to 'Show', show_ghelper_path(:id => params[:id], :gid => params[:gid], :bid => booking.bookingId) %></td>
+        <td><%= link_to 'Edit', edit_ghelper_path(:id => params[:id], :gid => params[:gid], :bid => booking.bookingId) %></td>
+        <td><%= link_to 'Destroy', del_ghelper_path(:id => params[:id], :gid => params[:gid], :bid => booking.bookingId), method: :delete, data: {confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<br>
+<%= link_to 'Back', eportal_path(:id => params[:id]) %>
+
