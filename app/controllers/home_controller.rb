@@ -19,7 +19,7 @@ class HomeController < ApplicationController
         redirect_to login_path :user => user_type, :error => true
       else
         puts 'success'
-        redirect_to "/guestportal/#{guest.id}"
+        redirect_to guest_portal_path(guest)
       end
     elsif user_type == 'employee'
       #retrieve username from database
@@ -35,11 +35,10 @@ class HomeController < ApplicationController
           when 'manager'
             puts 'manager position'
             # change redirect to manager specific portal
-            redirect_to employee
+            redirect_to manager_portal_path(employee)
           else
             puts 'regular staff'
-            # change redirect to staff specific portal
-            redirect_to employee
+            redirect_to "/employeeportal/#{employee.id}"
         end
       end
     end

@@ -1,0 +1,116 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Welcome <%= @employee['name'] %>!</h1>
+<br>
+<br>
+<h2>Employees</h2>
+
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Phone Number</th>
+    <th>Position</th>
+    <th>Hourly Rate ($/hr)</th>
+    <th>Start Date</th>
+    <th>Location</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @employees.each do |employee| %>
+    <tr>
+      <td><%= link_to employee['name'], employee %></td>
+      <td><%= employee['phoneNum'] %></td>
+      <td><%= employee['position'] %></td>
+      <td><%= employee['hourlyRate'] %></td>
+      <td><%= employee['startDate'] %></td>
+      <td><%= link_to employee['address'], location_path(id: employee['locationId']) %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Employee', new_employee_path %>
+
+<br>
+<br>
+
+<h2>VIP Customers</h2>
+<p>Customers who have stayed at every location.</p>
+
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Phone Number</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @vips.each do |vip| %>
+    <tr>
+      <td><%= link_to vip.name, vip %></td>
+      <td><%= vip.phoneNum %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<h2>Booking Aggregations</h2>
+<table>
+  <tbody>
+  <tr>
+    <td>
+      <%= label_tag :aggregator, 'Max' %>
+      <%= radio_button_tag :aggregator, 'max', false, :onchange => "retrieveResults(this)" %>
+    </td>
+    <td>
+      <%= label_tag :aggregator, 'Min' %>
+      <%= radio_button_tag :aggregator, 'min', false, :onchange => "retrieveResults(this)" %>
+    </td>
+    <td>
+      <%= label_tag :aggregator, 'Count' %>
+      <%= radio_button_tag :aggregator, 'count', false, :onchange => "retrieveResults(this)" %>
+    </td>
+    <td>
+      <%= label_tag :aggregator, 'Average' %>
+      <%= radio_button_tag :aggregator, 'avg', false, :onchange => "retrieveResults(this)" %>
+    </td>
+    <td>
+      <%= label_tag :aggregator, 'Sum' %>
+      <%= radio_button_tag :aggregator, 'sum', false, :onchange => "retrieveResults(this)" %>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<div id="agg_table">
+</div>
+
+<br>
+
+<h2>Nested Aggregation with Group By</h2>
+<p>Minimum average salary of employees by location</p>
+
+<table>
+  <tbody>
+  <tr>
+    <td>
+      <%= label_tag :aggregator, 'Max' %>
+      <%= radio_button_tag :aggregator, 'max', false, :onchange => "retrieveAggGroupByResults(this)" %>
+    </td>
+    <td>
+      <%= label_tag :aggregator, 'Min' %>
+      <%= radio_button_tag :aggregator, 'min', false, :onchange => "retrieveAggGroupByResults(this)" %>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<div id="agg_group_by_table">
+</div>
