@@ -24,6 +24,9 @@ Rails.application.routes.draw do
   get '/guestportal/:id/bookingedit', to: 'guestportal#bookingedit', as: 'edit_guest_booking'
   get '/guestportal/:id/infoedit', to: 'guestportal#infoedit', as: 'edit_guest_info'
 
+  get 'managerportal/:id', to: 'manager_portal#index', as: :manager_portal
+  get 'agg_search', to: 'manager_portal#search_aggregate'
+  get 'agg_group_by_search', to: 'manager_portal#group_by_search_aggregate'
 
   resources :reserves
   resources :employees
