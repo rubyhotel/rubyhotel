@@ -4,6 +4,7 @@
 
 <p>Your current location is <%= @employee[:address] %>.</p>
 <p>This location's phone number is <%= @employee[:phoneNum] %>.</p>
+<p>There are <strong><%= @roomCount %></strong> bookings for your location.</p>
 <br>
 
 <h2>Help a Guest:</h2>
@@ -38,8 +39,8 @@
     <tr>
       <td><%= rooms.roomNum %></td>
       <td><%= rooms.cost %></td>
-      <td><%= rooms.inDate %></td>
-      <td><%= rooms.outDate %></td>
+      <td><%= rooms.inDate.to_date %></td>
+      <td><%= rooms.outDate.to_date %></td>
       <td><%= rooms.numOfGuests %></td>
     </tr>
   <% end %>

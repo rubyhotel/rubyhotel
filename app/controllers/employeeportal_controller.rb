@@ -12,6 +12,10 @@ class EmployeeportalController < ApplicationController
             "WHERE Location.locationId=#{@employee[:locationId]}"
     @rooms = Room.find_by_sql(query)
 
+    query = "SELECT COUNT(*) FROM Booking INNER JOIN Reserve ON Booking.bookingId=Reserve.locationId "\
+            "WHERE Reserve.locationId=#{@employee[:locationId]}"
+    @roomCount = Booking.find_by_sql(query).first['COUNT(*)']
+
   end
 
   def search

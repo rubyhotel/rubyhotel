@@ -23,8 +23,8 @@
         <td><%= booking.locationId %></td>
         <td><%= booking.address %></td>
         <td><%= booking.roomNum %></td>
-        <td><%= booking.inDate %></td>
-        <td><%= booking.outDate %></td>
+        <td><%= booking.inDate.to_date %></td>
+        <td><%= booking.outDate.to_date %></td>
         <td><%= booking.numOfGuests %></td>
         <td><%= link_to 'Show', show_ghelper_path(:id => params[:id], :gid => params[:gid], :bid => booking.bookingId) %></td>
         <td><%= link_to 'Edit', edit_ghelper_path(:id => params[:id], :gid => params[:gid], :bid => booking.bookingId) %></td>
