@@ -206,24 +206,6 @@ INSERT INTO
   Room (roomId, roomNum, amenities, isVacant, isClean, locationId)
 VALUES (1, 101, 'internet, 2 bath, 1 king size bed', TRUE, TRUE, 1);
 
-# Start of Sam's rooms
-INSERT INTO
-  Room (roomId, roomNum, amenities, isVacant, isClean, locationId)
-VALUES (6, 102, 'internet, 2 bath, 1 king size bed', TRUE, TRUE, 1);
-
-INSERT INTO
-  Room (roomId, roomNum, amenities, isVacant, isClean, locationId)
-VALUES (7, 103, 'internet, 2 bath, 1 king size bed', TRUE, TRUE, 1);
-
-INSERT INTO
-  Room (roomId, roomNum, amenities, isVacant, isClean, locationId)
-VALUES (8, 104, 'internet, 2 bath, 1 king size bed', TRUE, TRUE, 1);
-
-INSERT INTO
-  Room (roomId, roomNum, amenities, isVacant, isClean, locationId)
-VALUES (9, 105, 'internet, 2 bath, 1 king size bed', TRUE, TRUE, 1);
-#End of Sam's rooms
-
 INSERT INTO
   Room (roomId, roomNum, amenities, isVacant, isClean, locationId)
 VALUES (2, 101, 'internet, 1 bath, 1 queen size bed', TRUE, TRUE, 2);
