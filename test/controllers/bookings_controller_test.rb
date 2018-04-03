@@ -23,7 +23,7 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to booking_url(Booking.last)
   end
 
-  test "should show booking" do
+  test "should index booking" do
     get booking_url(@booking)
     assert_response :success
   end

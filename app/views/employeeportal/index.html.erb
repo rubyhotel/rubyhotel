@@ -1,0 +1,52 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Welcome <%= @employee[:name] %>!</h1>
+
+<p>Your current location is <%= @employee[:address] %>.</p>
+<p>This location's phone number is <%= @employee[:phoneNum] %>.</p>
+<p>There are <strong><%= @roomCount %></strong> bookings for your location.</p>
+<br>
+
+<h2>Help a Guest:</h2>
+
+<% if @error %>
+  <p style="color:red">Must identify guest by Guest ID.</p>
+<% end %>
+
+<%= form_tag(search_guest_path(:id => @employee[:employeeId], :gid => :gid), method: :get) do %>
+  <%= label_tag :gid, "Guest ID" %>
+  <%= text_field_tag :gid %>
+  <br>
+  <%= submit_tag "Assist" %>
+<% end %>
+
+<br>
+<h2>Bookings at <%= @employee[:address] %>:</h2>
+<table>
+  <thead>
+  <tr>
+    <th>Room No.</th>
+    <th>Cost</th>
+    <th>In-Date</th>
+    <th>Out-Date</th>
+    <th>Number of Guests</th>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @rooms.each do |rooms| %>
+    <tr>
+      <td><%= rooms.roomNum %></td>
+      <td><%= rooms.cost %></td>
+      <td><%= rooms.inDate.to_date %></td>
+      <td><%= rooms.outDate.to_date %></td>
+      <td><%= rooms.numOfGuests %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+<br>
+<%= link_to "Logout", root_path %>

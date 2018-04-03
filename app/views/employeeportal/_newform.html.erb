@@ -1,0 +1,23 @@
+<%= form_with(model: booking, local: true) do |form| %>
+
+  <p id="notice"><%= alert %></p>
+
+  <div class="field">
+    <%= form.label :inDate %>
+    <%= form.date_select :inDate, id: :booking_inDate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :outDate %>
+    <%= form.date_select :outDate, id: :booking_outDate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :numOfGuests %>
+    <%= form.number_field :numOfGuests, id: :booking_numOfGuests %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
